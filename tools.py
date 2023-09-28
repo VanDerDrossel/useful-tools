@@ -1,3 +1,6 @@
+import xml.dom.minidom
+
+
 def create_partition(part_size: int, data: list):
     for i in range(0, len(data), part_size):
         yield data[i:i+part_size]
@@ -47,3 +50,17 @@ def adjust_control_sum(inn: str) -> str:
         base.append(control_number_12)
         
         return ''.join(map(str, base))
+
+
+def validate_xml(data_as_string: str) -> bool:
+    """XML validation."""
+    validate_xml_res = True
+    
+    try:
+        xml.dom.minidom.parseString(data_as_string)
+    except Exception as err:
+        print(err)
+        validate_xml_res = False
+    
+    return validate_xml_res
+
